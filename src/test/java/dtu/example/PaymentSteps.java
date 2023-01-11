@@ -95,5 +95,6 @@ public class PaymentSteps {
 
     @And("that the merchant is registered with DTU Pay")
     public void thatTheMerchantIsRegisteredWithDTUPay() {
+        throw new io.cucumber.java.PendingException();
     }
 }

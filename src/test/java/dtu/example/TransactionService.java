@@ -12,6 +12,7 @@ public class TransactionService {
     WebTarget baseUrl ;
     public TransactionService() {
         Client client = ClientBuilder.newClient();
+        // TODO: Ask Hubert if we should include running the end-to-end tests on Jenkins, or just on local dev boxes
         baseUrl = client.target("http://localhost:8080/");
     }
 
