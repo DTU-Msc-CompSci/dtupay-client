@@ -67,7 +67,7 @@ public class PaymentSteps {
 
     @When("the merchant initiates a payment for {int} kr by the customer")
     public void the_merchant_initiates_a_payment_for_kr_by_the_customer(Integer int1) {
-        response = transactionService.initiateTransaction(customer,merchant,int1);
+        response = transactionService.initiateTransaction(customerBankId,merchantBankId,int1);
     }
 
     //ASK Hubert seperating domain from tech ??
@@ -93,8 +93,15 @@ public class PaymentSteps {
         assertNotNull(merchantBankId);
     }
 
-    @And("that the merchant is registered with DTU Pay")
-    public void thatTheMerchantIsRegisteredWithDTUPay() {
-        throw new io.cucumber.java.PendingException();
+
+    @Then("the balance of the customer at the bank is {int} kr")
+    public void the_balance_of_the_customer_at_the_bank_is_kr(Integer int1) throws BankServiceException_Exception {
+        Integer customerBalance =  Integer.valueOf(bankService.getAccount(customerBankId).getBalance().intValue());
+        assertEquals(int1, customerBalance);
+    }
+    @Then("the balance of the merchant at the bank is {int} kr")
+    public void the_balance_of_the_merchant_at_the_bank_is_kr(Integer int1) throws BankServiceException_Exception {
+        Integer customerBalance =  Integer.valueOf(bankService.getAccount(merchantBankId).getBalance().intValue());
+        assertEquals(int1, customerBalance);
     }
 }

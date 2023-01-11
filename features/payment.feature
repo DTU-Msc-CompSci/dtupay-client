@@ -1,9 +1,10 @@
 Feature: Payment
-  Scenario: Basic Successful Payment
-    Given a customer with id "cid1"
-    And a merchant with id "mid1"
-    When the merchant initiates a payment for 10 kr by the customer
-    Then the payment is successful
+	#Cannot pass anymore as the payment service needs actual bank ids to successfully perform payment
+#  Scenario: Basic Successful Payment
+#    Given a customer with id "cid1"
+#    And a merchant with id "mid1"
+#    When the merchant initiates a payment for 10 kr by the customer
+#    Then the payment is successful
 
 	# TODO: Implement later since more dependent on other services
 	Scenario: Successful Payment
@@ -13,5 +14,5 @@ Feature: Payment
 #		And that the merchant is registered with DTU Pay
 		When the merchant initiates a payment for 100 kr by the customer
 		Then the payment is successful
-#		And the balance of the customer at the bank is 900 kr
-#		And the balance of the merchant at the bank is 2100 kr
+		And the balance of the customer at the bank is 900 kr
+		And the balance of the merchant at the bank is 2100 kr
