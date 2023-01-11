@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-	<!-- Tip to update to the latest releases: Run "mvn versions:use-latest-releases" -->
-
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dtu</groupId>
 	<artifactId>dtupay-client</artifactId>
@@ -12,109 +7,55 @@
 	<version>SNAPSHOT 0.0.1</version>
 
 	<properties>
-		<!--  Set the Java version used by the compiler. -->
-		<!--  Setting to Java 8 or >= 11 will work in most cases, --> 
-		<!--  for all installed Java versions -->
-		<compiler-plugin.version>3.10.1</compiler-plugin.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>2.15.1.Final</quarkus.platform.version>
 	</properties>
 	<build>
 		<plugins>
-			<!-- The Surefire Plugin is needed to run JUnit 5 tests with Maven -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
-				<configuration>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${compiler-plugin.version}</version>
-			</plugin>
-
-			<plugin>
-				<groupId>com.sun.xml.ws</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>4.0.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<wsdlUrls>
-						<wsdlUrl>http://fm-00.compute.dtu.dk/BankService.wsdl.xml</wsdlUrl>
-					</wsdlUrls>
-					<keep>true</keep>
-					<packageName>dtu.ws.fastmoney</packageName>
-					<sourceDestDir>src/main/java</sourceDestDir>
-				</configuration>
+				<configuration></configuration>
 			</plugin>
 		</plugins>
 	</build>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>${quarkus.platform.group-id}</groupId>
-				<artifactId>${quarkus.platform.artifact-id}</artifactId>
-				<version>${quarkus.platform.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.ws/jaxws-ri -->
 		<dependency>
-			<groupId>jakarta.platform</groupId>
-			<artifactId>jakarta.jakartaee-api</artifactId>
-			<version>10.0.0</version>
+		    <groupId>com.sun.xml.ws</groupId>
+		    <artifactId>jaxws-ri</artifactId>
+		    <version>4.0.0</version>
+		    <type>pom</type>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jakarta.xml.ws/jakarta.xml.ws-api -->
 		<dependency>
-			<groupId>com.sun.xml.ws</groupId>
-			<artifactId>jaxws-ri</artifactId>
-			<version>4.0.0</version>
-			<type>pom</type>
+		    <groupId>jakarta.xml.ws</groupId>
+		    <artifactId>jakarta.xml.ws-api</artifactId>
+		    <version>4.0.0</version>
 		</dependency>
-		<!-- General REST framework -->
+		<!-- https://mvnrepository.com/artifact/jakarta.jws/jakarta.jws-api -->
 		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-client</artifactId>
-			<version>6.2.1.Final</version>
-		</dependency>
-		<!-- Serializer to and from JSON -->
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-jsonb</artifactId>
-			<version>3.0.0.Alpha2</version>
-		</dependency>
-		<!-- Serializer to and from XML -->
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-resteasy-jaxb</artifactId>
-			<version>2.15.2.Final</version>
+		    <groupId>jakarta.jws</groupId>
+		    <artifactId>jakarta.jws-api</artifactId>
+		    <version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.9.0</version>
+			<version>7.10.1</version>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>7.9.0</version>
+			<version>7.10.1</version>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-picocontainer</artifactId>
-			<version>7.9.0</version>
+			<version>7.10.1</version>
 		</dependency>
 		<!-- This is JUnit 5 aka Jupiter -->
 		<dependency>
@@ -137,16 +78,24 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>4.8.1</version>
-			<scope>test</scope>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>6.2.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy-jsonb</artifactId>
+			<version>3.0.0.Alpha2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy-jaxb</artifactId>
+			<version>3.0.0.Alpha2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.24</version>
 		</dependency>
-
 	</dependencies>
 </project>
