@@ -1,18 +1,60 @@
 package dtu.example;
 
+import dtu.ws.fastmoney.BankService;
+import dtu.ws.fastmoney.BankServiceException_Exception;
+import dtu.ws.fastmoney.BankServiceService;
+import dtu.ws.fastmoney.User;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import jakarta.ws.rs.core.Response;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import java.math.BigDecimal;
+
+import static org.junit.Assert.*;
 
 public class PaymentSteps {
     String customer;
     String merchant;
     TransactionService transactionService = new TransactionService();
+    BankService bankService = new BankServiceService().getBankServicePort();
+    User customerBankAccount = new User();
+    User merchantBankAccount = new User();
+    String customerBankId;
+    String merchantBankId;
     Response response;
+
+    @Before
+    public void setUp() {
+        customerBankAccount.setFirstName("John");
+        customerBankAccount.setLastName("Doe");
+        customerBankAccount.setCprNumber("123456-7890");
+
+        merchantBankAccount.setFirstName("Jane");
+        merchantBankAccount.setLastName("Doe");
+        merchantBankAccount.setCprNumber("123456-7891");
+        try {
+            customerBankId = bankService.createAccountWithBalance(customerBankAccount, BigDecimal.valueOf(1000));
+            merchantBankId = bankService.createAccountWithBalance(merchantBankAccount, BigDecimal.valueOf(2000));
+
+        } catch (BankServiceException_Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            bankService.retireAccount(customerBankId);
+            bankService.retireAccount(merchantBankId);
+        } catch (BankServiceException_Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Given("a customer with id {string}")
     public void a_customer_with_id(String id) {
         customer = id;
@@ -34,4 +76,24 @@ public class PaymentSteps {
         assertEquals(201,response.getStatus());
     }
 
+    @Given("a customer with a bank account with balance {int}")
+    public void aCustomerWithABankAccountWithBalance(int arg0) {
+        // TODO: Make this more robust since it just references the Before/After blocks
+        assertNotNull(customerBankId);
+    }
+
+    @And("that the customer is registered with DTU Pay")
+    public void thatTheCustomerIsRegisteredWithDTUPay() {
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @Given("a merchant with a bank account with balance {int}")
+    public void aMerchantWithABankAccountWithBalance(int arg0) {
+        // TODO: Make this more robust since it just references the Before/After blocks
+        assertNotNull(merchantBankId);
+    }
+
+    @And("that the merchant is registered with DTU Pay")
+    public void thatTheMerchantIsRegisteredWithDTUPay() {
+    }
 }
