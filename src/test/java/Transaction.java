@@ -1,8 +1,6 @@
-package dtu.example;
-
+import lombok.Data;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @XmlRootElement // Needed for XML serialization and deserialization

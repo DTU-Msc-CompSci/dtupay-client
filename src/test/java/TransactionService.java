@@ -1,5 +1,3 @@
-package dtu.example;
-
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -22,4 +20,3 @@ public class TransactionService {
                 .post(Entity.entity(new Transaction(cid, mid, amount), MediaType.APPLICATION_JSON));
     }
 }
-

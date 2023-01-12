@@ -1,5 +1,3 @@
-package dtu.example;
-
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
@@ -14,7 +12,8 @@ import jakarta.ws.rs.core.Response;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class PaymentSteps {
     String customer;
